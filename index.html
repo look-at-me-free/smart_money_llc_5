@@ -422,10 +422,9 @@
       height:max-content;
     }
 
-    .rail-stack{
-      display:grid;
-      grid-template-columns:repeat(2, minmax(0, 1fr));
-      gap:6px;
+    .rail-stack .slot{
+      min-height:250px;
+      padding:0;
     }
 
     .slot,
@@ -450,7 +449,7 @@
 
     .image-wrap{
       background:#000;
-      margin:0;
+      margin-bottom:6px;
     }
 
     .image-wrap img{
