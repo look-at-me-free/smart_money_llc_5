@@ -52,6 +52,20 @@
           "subtitle": "Chapter 3"
         }
       ]
+    },
+    {
+      "id": 301,
+      "slug": "golden",
+      "display": "Golden",
+      "top_pill": true,
+      "entries": [
+        {
+          "slug": "chapter_1",
+          "path": "chapter_1",
+          "type": "chapter",
+          "subtitle": "Chapter 1"
+        }
+      ]
     }
   ]
 }
