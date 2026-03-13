@@ -97,7 +97,7 @@
         { "slug": "chapter_10", "path": "book_1/chapter_10", "type": "chapter", "subtitle": "Chapter 10" },
         { "slug": "chapter_11", "path": "book_1/chapter_11", "type": "chapter", "subtitle": "Chapter 11" },
         { "slug": "chapter_12", "path": "book_1/chapter_12", "type": "chapter", "subtitle": "Chapter 12" },
-        { "slug": "chapter_13", "path": "book_2/chapter_13", "type": "chapter", "subtitle": "Chapter 13" },
+        { "slug": "chapter_13", "path": "book_1/chapter_13", "type": "chapter", "subtitle": "Chapter 13" },
         { "slug": "chapter_14", "path": "book_2/chapter_14", "type": "chapter", "subtitle": "Chapter 14" },
         { "slug": "chapter_15", "path": "book_2/chapter_15", "type": "chapter", "subtitle": "Chapter 15" },
         { "slug": "chapter_16", "path": "book_2/chapter_16", "type": "chapter", "subtitle": "Chapter 16" },
