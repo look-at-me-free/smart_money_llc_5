@@ -153,7 +153,16 @@
         { "slug": "episode_1", "path": "episode_1", "type": "chapter", "subtitle": "Episode 1" },
         { "slug": "episode_2", "path": "episode_2", "type": "chapter", "subtitle": "Episode 2" },
         { "slug": "episode_3", "path": "episode_3", "type": "chapter", "subtitle": "Episode 3" },
-        { "slug": "episode_4", "path": "episode_4", "type": "chapter", "subtitle": "Episode 4" }
+        { "slug": "episode_4", "path": "episode_4", "type": "chapter", "subtitle": "Episode 4" },
+        { "slug": "episode_5", "path": "episode_5", "type": "chapter", "subtitle": "Episode 5" },
+        { "slug": "episode_6", "path": "episode_6", "type": "chapter", "subtitle": "Episode 6" },
+        { "slug": "episode_7", "path": "episode_7", "type": "chapter", "subtitle": "Episode 7" },
+        { "slug": "episode_8", "path": "episode_8", "type": "chapter", "subtitle": "Episode 8" },
+        { "slug": "episode_9", "path": "episode_9", "type": "chapter", "subtitle": "Episode 9" },
+        { "slug": "episode_10", "path": "episode_10", "type": "chapter", "subtitle": "Episode 10" },
+        { "slug": "episode_11", "path": "episode_11", "type": "chapter", "subtitle": "Episode 11" },
+        { "slug": "episode_12", "path": "episode_12", "type": "chapter", "subtitle": "Episode 12" },
+        { "slug": "episode_13", "path": "episode_13", "type": "chapter", "subtitle": "Episode 13" }
       ]
     },
 
