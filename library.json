@@ -1,9 +1,58 @@
 {
   "version": 1,
   "sources": {
-    "a": "https://pub-cd01009a7c6c464aa0b093e33aa5ae51.r2.dev/works"
+    "a": "https://pub-cd01009a7c6c464aa0b093e33aa5ae51.r2.dev/works",
+    "b": "https://pub-c8b2722cff4d4adb8f15f32075867df5.r2.dev/works"
+
   },
-  "works": [
+  "works":  [
+    {
+      "id": 1101,
+      "slug": "Akira",
+      "display": "Akira",
+      "top_pill": true,
+      "source": "b",
+      "entries": [
+        { "slug": "chapter_1", "path": "chapter_1", "type": "chapter", "subtitle": "Chapter 1" },
+        { "slug": "chapter_2", "path": "chapter_2", "type": "chapter", "subtitle": "Chapter 2" },
+        { "slug": "chapter_3", "path": "chapter_3", "type": "chapter", "subtitle": "Chapter 3" },
+        { "slug": "chapter_4", "path": "chapter_4", "type": "chapter", "subtitle": "Chapter 4" },
+        { "slug": "chapter_5", "path": "chapter_5", "type": "chapter", "subtitle": "Chapter 5" },
+        { "slug": "chapter_6", "path": "chapter_6", "type": "chapter", "subtitle": "Chapter 6" },
+        { "slug": "chapter_7", "path": "chapter_7", "type": "chapter", "subtitle": "Chapter 7" },
+        { "slug": "chapter_8", "path": "chapter_8", "type": "chapter", "subtitle": "Chapter 8" },
+        { "slug": "chapter_9", "path": "chapter_9", "type": "chapter", "subtitle": "Chapter 9" },
+        { "slug": "chapter_10", "path": "chapter_10", "type": "chapter", "subtitle": "Chapter 10" },
+        { "slug": "chapter_11", "path": "chapter_11", "type": "chapter", "subtitle": "Chapter 11" },
+        { "slug": "chapter_12", "path": "chapter_12", "type": "chapter", "subtitle": "Chapter 12" },
+        { "slug": "chapter_13", "path": "chapter_13", "type": "chapter", "subtitle": "Chapter 13" },
+        { "slug": "chapter_14", "path": "chapter_14", "type": "chapter", "subtitle": "Chapter 14" },
+        { "slug": "chapter_15", "path": "chapter_15", "type": "chapter", "subtitle": "Chapter 15" },
+        { "slug": "chapter_16", "path": "chapter_16", "type": "chapter", "subtitle": "Chapter 16" },
+        { "slug": "chapter_17", "path": "chapter_17", "type": "chapter", "subtitle": "Chapter 17" },
+        { "slug": "chapter_18", "path": "chapter_18", "type": "chapter", "subtitle": "Chapter 18" },
+        { "slug": "chapter_19", "path": "chapter_19", "type": "chapter", "subtitle": "Chapter 19" },
+        { "slug": "chapter_20", "path": "chapter_20", "type": "chapter", "subtitle": "Chapter 20" },
+        { "slug": "chapter_21", "path": "chapter_21", "type": "chapter", "subtitle": "Chapter 21" },
+        { "slug": "chapter_22", "path": "chapter_22", "type": "chapter", "subtitle": "Chapter 22" },
+        { "slug": "chapter_23", "path": "chapter_23", "type": "chapter", "subtitle": "Chapter 23" },
+        { "slug": "chapter_24", "path": "chapter_24", "type": "chapter", "subtitle": "Chapter 24" },
+        { "slug": "chapter_25", "path": "chapter_25", "type": "chapter", "subtitle": "Chapter 25" },
+        { "slug": "chapter_26", "path": "chapter_26", "type": "chapter", "subtitle": "Chapter 26" },
+        { "slug": "chapter_27", "path": "chapter_27", "type": "chapter", "subtitle": "Chapter 27" },
+        { "slug": "chapter_28", "path": "chapter_28", "type": "chapter", "subtitle": "Chapter 28" },
+        { "slug": "chapter_29", "path": "chapter_29", "type": "chapter", "subtitle": "Chapter 29" },
+        { "slug": "chapter_30", "path": "chapter_30", "type": "chapter", "subtitle": "Chapter 30" },
+        { "slug": "chapter_31", "path": "chapter_31", "type": "chapter", "subtitle": "Chapter 31" },
+        { "slug": "chapter_32", "path": "chapter_32", "type": "chapter", "subtitle": "Chapter 32" },
+        { "slug": "chapter_33", "path": "chapter_33", "type": "chapter", "subtitle": "Chapter 33" },
+        { "slug": "chapter_34", "path": "chapter_34", "type": "chapter", "subtitle": "Chapter 34" },
+        { "slug": "chapter_35", "path": "chapter_35", "type": "chapter", "subtitle": "Chapter 35" },
+        { "slug": "chapter_36", "path": "chapter_36", "type": "chapter", "subtitle": "Chapter 36" },
+        { "slug": "chapter_37", "path": "chapter_37", "type": "chapter", "subtitle": "Chapter 37" },
+        { "slug": "chapter_38", "path": "chapter_38", "type": "chapter", "subtitle": "Chapter 38" }
+      ]
+    },
     {
       "id": 101,
       "slug": "barato",
