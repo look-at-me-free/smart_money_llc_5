@@ -210,7 +210,7 @@
         { "slug": "chapter_7", "path": "book_1/chapter_7", "type": "chapter", "subtitle": "Chapter 7" },
         { "slug": "official_extras", "path": "book_1/official_extras", "type": "chapter", "subtitle": "Official Extras" }
       ]
-    }, {
+}, {
       "id": 7777777,
       "slug": "paradise_kiss",
       "display": "Paradise Kiss",
@@ -265,7 +265,7 @@
         { "slug": "chapter_46", "path": "Paradise_Kiss/compendium/chapter_46", "type": "chapter", "subtitle": "Chapter 46" },
         { "slug": "chapter_47", "path": "Paradise_Kiss/compendium/chapter_47", "type": "chapter", "subtitle": "Chapter 47" },
         { "slug": "chapter_48", "path": "Paradise_Kiss/compendium/chapter_48", "type": "chapter", "subtitle": "Chapter 48" }
-  ]
+]
 },
     
     
