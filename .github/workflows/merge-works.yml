@@ -1,4 +1,4 @@
-name: Merge Uploaded Works
+name: Merge Uploaded Works Into Library
 
 on:
   workflow_dispatch:
@@ -17,70 +17,175 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Merge works into catalog
+      - name: Merge uploaded works into library.json
         shell: pwsh
         run: |
-          $catalogPath = "catalog.json"
-          $worksFolder = "uploaded_works"
-          $outputPath  = "catalog.json"
+          $ErrorActionPreference = "Stop"
+          Set-StrictMode -Version Latest
 
-          function Read-Json($path) {
-              return (Get-Content $path -Raw) | ConvertFrom-Json -Depth 100
+          $libraryPath = "library.json"
+          $worksFolder = "uploaded_works"
+          $outputPath  = "library.json"
+
+          function Read-Json {
+              param([string]$Path)
+
+              if (-not (Test-Path -LiteralPath $Path)) {
+                  throw "Missing file: $Path"
+              }
+
+              $raw = Get-Content -LiteralPath $Path -Raw -Encoding UTF8
+
+              if ([string]::IsNullOrWhiteSpace($raw)) {
+                  throw "Empty JSON file: $Path"
+              }
+
+              try {
+                  return $raw | ConvertFrom-Json -Depth 100
+              }
+              catch {
+                  throw "Invalid JSON in file: $Path`n$($_.Exception.Message)"
+              }
           }
 
-          function To-Array($obj) {
-              if ($null -eq $obj) { return @() }
-              if ($obj -is [System.Collections.IEnumerable] -and -not ($obj -is [string])) {
-                  return @($obj)
+          function To-Array {
+              param($obj)
+
+              if ($null -eq $obj) {
+                  return @()
               }
+
+              if ($obj -is [System.Collections.IEnumerable] -and -not ($obj -is [string])) {
+                  $items = @()
+                  foreach ($item in $obj) {
+                      $items += $item
+                  }
+                  return $items
+              }
+
               return @($obj)
           }
 
-          $catalog = Read-Json $catalogPath
-          $worksList = New-Object System.Collections.ArrayList
-          foreach ($w in $catalog.works) { [void]$worksList.Add($w) }
+          function Normalize-Works {
+              param($block)
 
-          $files = Get-ChildItem "$worksFolder\*.json"
+              if ($null -eq $block) {
+                  return @()
+              }
+
+              if ($block.PSObject.Properties.Name -contains "works") {
+                  return To-Array $block.works
+              }
+
+              if ($block -is [System.Collections.IEnumerable] -and -not ($block -is [string])) {
+                  return To-Array $block
+              }
+
+              return @($block)
+          }
+
+          function Validate-Work {
+              param(
+                  $work,
+                  [string]$sourceFile
+              )
+
+              foreach ($prop in @("id", "slug", "display", "source", "entries")) {
+                  if (-not ($work.PSObject.Properties.Name -contains $prop)) {
+                      throw "Work in '$sourceFile' is missing required property '$prop'."
+                  }
+              }
+
+              $entries = To-Array $work.entries
+              foreach ($entry in $entries) {
+                  foreach ($entryProp in @("slug", "path", "type", "subtitle")) {
+                      if (-not ($entry.PSObject.Properties.Name -contains $entryProp)) {
+                          throw "Work '$($work.slug)' in '$sourceFile' has an entry missing '$entryProp'."
+                      }
+                  }
+              }
+          }
+
+          if (-not (Test-Path -LiteralPath $libraryPath)) {
+              throw "library.json was not found at repo root."
+          }
+
+          if (-not (Test-Path -LiteralPath $worksFolder)) {
+              throw "uploaded_works folder was not found at repo root."
+          }
+
+          $library = Read-Json -Path $libraryPath
+
+          if (-not ($library.PSObject.Properties.Name -contains "works")) {
+              throw "library.json does not contain a top-level 'works' array."
+          }
+
+          $worksList = New-Object System.Collections.ArrayList
+          foreach ($w in (To-Array $library.works)) {
+              [void]$worksList.Add($w)
+          }
+
+          $files = Get-ChildItem -LiteralPath $worksFolder -Filter *.json -File
+
+          if ($files.Count -eq 0) {
+              Write-Host "No uploaded work files found."
+              exit 0
+          }
 
           foreach ($file in $files) {
               Write-Host "Processing $($file.Name)"
-              $block = Read-Json $file.FullName
-
-              if ($block.works) {
-                  $newWorks = To-Array $block.works
-              } elseif ($block -is [System.Collections.IEnumerable]) {
-                  $newWorks = To-Array $block
-              } else {
-                  $newWorks = @($block)
-              }
+              $block = Read-Json -Path $file.FullName
+              $newWorks = Normalize-Works -block $block
 
               foreach ($work in $newWorks) {
-                  $exists = $false
+                  Validate-Work -work $work -sourceFile $file.Name
 
-                  foreach ($existing in $worksList) {
-                      if ($existing.slug -eq $work.slug) {
-                          $exists = $true
+                  $existingIndex = -1
+                  for ($i = 0; $i -lt $worksList.Count; $i++) {
+                      if ($worksList[$i].slug -eq $work.slug) {
+                          $existingIndex = $i
                           break
                       }
                   }
 
-                  if (-not $exists) {
+                  if ($existingIndex -ge 0) {
+                      $worksList[$existingIndex] = $work
+                      Write-Host "Replaced existing work: $($work.slug)"
+                  }
+                  else {
                       [void]$worksList.Add($work)
-                      Write-Host "Added $($work.slug)"
-                  } else {
-                      Write-Host "Skipped duplicate $($work.slug)"
+                      Write-Host "Added new work: $($work.slug)"
                   }
               }
           }
 
-          $catalog.works = $worksList
-          $catalog | ConvertTo-Json -Depth 100 | Set-Content $outputPath -Encoding UTF8
+          $library.works = $worksList
+          $library | ConvertTo-Json -Depth 100 | Set-Content -LiteralPath $outputPath -Encoding UTF8
 
-      - name: Commit updated catalog
+      - name: Remove processed uploaded work files
         shell: pwsh
         run: |
-          git config user.name "github-actions"
-          git config user.email "actions@github.com"
-          git add catalog.json
-          git commit -m "Auto merge uploaded works" || echo "No changes"
+          $files = Get-ChildItem -LiteralPath "uploaded_works" -Filter *.json -File -ErrorAction SilentlyContinue
+          if ($files) {
+              Remove-Item -LiteralPath $files.FullName -Force
+              Write-Host "Removed processed uploaded_works JSON files."
+          } else {
+              Write-Host "No uploaded work files to remove."
+          }
+
+      - name: Commit updated library.json
+        shell: pwsh
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add library.json uploaded_works
+
+          $changes = git diff --cached --name-only
+          if (-not $changes) {
+              Write-Host "No changes to commit."
+              exit 0
+          }
+
+          git commit -m "Merge uploaded works into library"
           git push
