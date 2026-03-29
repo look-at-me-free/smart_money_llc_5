@@ -33,39 +33,39 @@
   };
 
   const ZONES = {
-  topBanner: 5885322,
-  leftRail: 5885322,
-  rightRail: 5885322,
-  betweenMulti: 5885322
-};
+    topBanner: 5865232,
+    leftRail: 5865238,
+    rightRail: 5865240,
+    betweenMulti: 5867482
+  };
 
   const SPECIAL_ZONES = {
-  desktopInterstitial: {
-    zoneId: 5880058,
-    className: "eas6a97888e35",
-    host: "https://a.pemsrv.com/ad-provider.js"
-  },
-  mobileInterstitial: {
-    zoneId: 5880060,
-    className: "eas6a97888e33",
-    host: "https://a.pemsrv.com/ad-provider.js"
-  },
-  desktopVideoSlider: {
-    zoneId: 5880066,
-    className: "eas6a97888e31",
-    host: "https://a.magsrv.com/ad-provider.js"
-  },
-  desktopRecommend: {
-    zoneId: 5885322,
-    className: "eas6a97888e38",
-    host: "https://a.magsrv.com/ad-provider.js"
-  },
-  mobileSticky: {
-    zoneId: 5885322,
-    className: "eas6a97888e38",
-    host: "https://a.magsrv.com/ad-provider.js"
-  }
-};
+    desktopInterstitial: {
+      zoneId: 5880058,
+      className: "eas6a97888e35",
+      host: "https://a.pemsrv.com/ad-provider.js"
+    },
+    mobileInterstitial: {
+      zoneId: 5880060,
+      className: "eas6a97888e33",
+      host: "https://a.pemsrv.com/ad-provider.js"
+    },
+    desktopVideoSlider: {
+      zoneId: 5880066,
+      className: "eas6a97888e31",
+      host: "https://a.magsrv.com/ad-provider.js"
+    },
+    desktopRecommend: {
+      zoneId: 5880068,
+      className: "eas6a97888e20",
+      host: "https://a.magsrv.com/ad-provider.js"
+    },
+    mobileSticky: {
+      zoneId: 5880082,
+      className: "eas6a97888e10",
+      host: "https://a.magsrv.com/ad-provider.js"
+    }
+  };
 
   const LEFT_RAIL_IDS = [
     "leftRailSlot1","leftRailSlot2","leftRailSlot3","leftRailSlot4","leftRailSlot5","leftRailSlot6",
