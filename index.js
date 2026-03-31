@@ -361,6 +361,8 @@
     if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
+
+
   // ------------------------------------------------------------
   // Fetch
   // ------------------------------------------------------------
@@ -373,10 +375,56 @@
     return res.json();
   }
 
+  function normalizeManifestPath(path) {
+    return String(path || "").trim();
+  }
+
+  function normalizeWorkObject(work) {
+    return {
+      ...work,
+      entries: Array.isArray(work?.entries) ? work.entries : []
+    };
+  }
+
+  async function hydrateWork(work) {
+    const manifestPath =
+      typeof work?.manifest === "string"
+        ? normalizeManifestPath(work.manifest)
+        : "";
+
+    if (manifestPath) {
+      const manifestWork = await fetchJson(manifestPath);
+
+      return {
+        ...normalizeWorkObject(manifestWork),
+        ...work,
+        entries: Array.isArray(manifestWork?.entries) ? manifestWork.entries : []
+      };
+    }
+
+    return normalizeWorkObject(work);
+  }
+
   async function loadLibrary() {
     const data = await fetchJson(CONFIG.libraryFile);
-    STATE.works = Array.isArray(data.works) ? data.works : [];
-    STATE.sourceMap = data && typeof data.sources === "object" && data.sources ? data.sources : {};
+
+    STATE.sourceMap =
+      data && typeof data.sources === "object" && data.sources
+        ? data.sources
+        : {};
+
+    const rawWorks = Array.isArray(data?.works) ? data.works : [];
+
+    STATE.works = await Promise.all(
+      rawWorks.map(async (work) => {
+        try {
+          return await hydrateWork(work);
+        } catch (err) {
+          console.error(`Failed to hydrate work "${work?.slug || "unknown"}"`, err);
+          return normalizeWorkObject(work);
+        }
+      })
+    );
   }
 
   // ------------------------------------------------------------
@@ -388,6 +436,7 @@
     STATE.lastServeAt = now();
     STATE.adServeScheduled = false;
   }
+ 
 
   function serveAds(force = false) {
     const elapsed = now() - STATE.lastServeAt;
@@ -1810,3 +1859,5 @@
     });
   });
 })();
+
+
