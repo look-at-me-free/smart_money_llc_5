@@ -4851,6 +4851,13 @@
                     }
                 ]
 },{
+  "id": 7041208,
+  "slug": "Hajirau_Kimi_ga_Mitainda",
+  "display": "Hajirau Kimi ga Mitainda",
+  "top_pill": true,
+  "source": "e",
+  "manifest": "manifests/Hajirau_Kimi_ga_Mitainda.json"
+},{
     "id":  117,
     "slug":  "Dorohedoro",
     "display":  "Dorohedoro",
