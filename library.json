@@ -22339,6 +22339,152 @@
                         "subtitle":  "Volume 4 - Chapter 26"
                     }
                 ]
+},{
+    "id":  60015,
+    "slug":  "Chikan_Otoko",
+    "display":  "Molester Man",
+    "top_pill":  true,
+    "source":  "e",
+    "entries":  [
+                    {
+                        "slug":  "v1_c1",
+                        "path":  "volume_1/chapter_1",
+                        "type":  "chapter",
+                        "subtitle":  "Volume 1 - Chapter 1"
+                    },
+                    {
+                        "slug":  "v1_c2",
+                        "path":  "volume_1/chapter_2",
+                        "type":  "chapter",
+                        "subtitle":  "Volume 1 - Chapter 2"
+                    },
+                    {
+                        "slug":  "v1_c3",
+                        "path":  "volume_1/chapter_3",
+                        "type":  "chapter",
+                        "subtitle":  "Volume 1 - Chapter 3"
+                    },
+                    {
+                        "slug":  "v1_c4",
+                        "path":  "volume_1/chapter_4",
+                        "type":  "chapter",
+                        "subtitle":  "Volume 1 - Chapter 4"
+                    },
+                    {
+                        "slug":  "v1_c5",
+                        "path":  "volume_1/chapter_5",
+                        "type":  "chapter",
+                        "subtitle":  "Volume 1 - Chapter 5"
+                    },
+                    {
+                        "slug":  "v1_c6",
+                        "path":  "volume_1/chapter_6",
+                        "type":  "chapter",
+                        "subtitle":  "Volume 1 - Chapter 6"
+                    },
+                    {
+                        "slug":  "v1_c7",
+                        "path":  "volume_1/chapter_7",
+                        "type":  "chapter",
+                        "subtitle":  "Volume 1 - Chapter 7"
+                    },
+                    {
+                        "slug":  "v1_c8",
+                        "path":  "volume_1/chapter_8",
+                        "type":  "chapter",
+                        "subtitle":  "Volume 1 - Chapter 8"
+                    },
+                    {
+                        "slug":  "v1_c9",
+                        "path":  "volume_1/chapter_9",
+                        "type":  "chapter",
+                        "subtitle":  "Volume 1 - Chapter 9"
+                    },
+                    {
+                        "slug":  "v1_c10",
+                        "path":  "volume_1/chapter_10",
+                        "type":  "chapter",
+                        "subtitle":  "Volume 1 - Chapter 10"
+                    },
+                    {
+                        "slug":  "v1_c11",
+                        "path":  "volume_1/chapter_11",
+                        "type":  "chapter",
+                        "subtitle":  "Volume 1 - Chapter 11"
+                    },
+                    {
+                        "slug":  "v1_c12",
+                        "path":  "volume_1/chapter_12",
+                        "type":  "chapter",
+                        "subtitle":  "Volume 1 - Chapter 12"
+                    },
+                    {
+                        "slug":  "v1_c13",
+                        "path":  "volume_1/chapter_13",
+                        "type":  "chapter",
+                        "subtitle":  "Volume 1 - Chapter 13"
+                    },
+                    {
+                        "slug":  "v1_c14",
+                        "path":  "volume_1/chapter_14",
+                        "type":  "chapter",
+                        "subtitle":  "Volume 1 - Chapter 14"
+                    },
+                    {
+                        "slug":  "v1_c15",
+                        "path":  "volume_1/chapter_15",
+                        "type":  "chapter",
+                        "subtitle":  "Volume 1 - Chapter 15"
+                    },
+                    {
+                        "slug":  "v1_c16",
+                        "path":  "volume_1/chapter_16",
+                        "type":  "chapter",
+                        "subtitle":  "Volume 1 - Chapter 16"
+                    },
+                    {
+                        "slug":  "v1_c17",
+                        "path":  "volume_1/chapter_17",
+                        "type":  "chapter",
+                        "subtitle":  "Volume 1 - Chapter 17"
+                    },
+                    {
+                        "slug":  "v1_c18",
+                        "path":  "volume_1/chapter_18",
+                        "type":  "chapter",
+                        "subtitle":  "Volume 1 - Chapter 18"
+                    },
+                    {
+                        "slug":  "v1_c19",
+                        "path":  "volume_1/chapter_19",
+                        "type":  "chapter",
+                        "subtitle":  "Volume 1 - Chapter 19"
+                    },
+                    {
+                        "slug":  "v1_c20",
+                        "path":  "volume_1/chapter_20",
+                        "type":  "chapter",
+                        "subtitle":  "Volume 1 - Chapter 20"
+                    },
+                    {
+                        "slug":  "v1_c21",
+                        "path":  "volume_1/chapter_21",
+                        "type":  "chapter",
+                        "subtitle":  "Volume 1 - Chapter 21"
+                    },
+                    {
+                        "slug":  "v1_c22",
+                        "path":  "volume_1/chapter_22",
+                        "type":  "chapter",
+                        "subtitle":  "Volume 1 - Chapter 22"
+                    },
+                    {
+                        "slug":  "v1_c23",
+                        "path":  "volume_1/chapter_23",
+                        "type":  "chapter",
+                        "subtitle":  "Volume 1 - Chapter 23"
+                    }
+                ]
 }, {
     "id":  5858,
     "slug":  "Tomie",
