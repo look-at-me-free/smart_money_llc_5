@@ -1731,10 +1731,15 @@ window.__STATE = STATE;
     reader.appendChild(buildTraversal("bottom"));
 
     const recommend = buildRecommendationWidget();
-    if (recommend) {
-      reader.appendChild(recommend);
-      await ensureAdProviderScript(SPECIAL_ZONES.desktopRecommend.host);
-    }
+if (recommend) {
+  reader.appendChild(recommend);
+
+  try {
+    await ensureAdProviderScript(SPECIAL_ZONES.desktopRecommend.host);
+  } catch (err) {
+    console.warn("Recommend ad provider failed, continuing anyway:", err);
+  }
+}
 
     const bottomAnchor = createEl("span", "reader-anchor");
     bottomAnchor.id = "readerBottomAnchor";
@@ -1817,48 +1822,52 @@ window.__STATE = STATE;
   // ------------------------------------------------------------
 
   async function boot() {
-    await Promise.all([
-      ensureAdProviderScript("https://a.magsrv.com/ad-provider.js"),
-      ensureAdProviderScript("https://a.pemsrv.com/ad-provider.js")
-    ]);
+  const adLoads = await Promise.allSettled([
+    ensureAdProviderScript("https://a.magsrv.com/ad-provider.js"),
+    ensureAdProviderScript("https://a.pemsrv.com/ad-provider.js")
+  ]);
 
-    await loadLibrary();
-
-    wireTopFlyouts();
-    wireStickyControls();
-    wireProgressWatch();
-    wireSearch();
-    wireMobileWorksNav();
-    wireMobileDial();
-    wireDocumentVisibility();
-    wireReaderClickMonetization();
-
-    await buildReader();
-
-    window.addEventListener("popstate", async () => {
-      await buildReader();
-      scrollToReaderContentStartInstant();
-    });
-  }
-
-  document.addEventListener("DOMContentLoaded", () => {
-    boot().catch(err => {
-      console.error(err);
-      clearRefreshTimers();
-
-      const workTitleEl = document.getElementById("workTitle");
-      if (workTitleEl) workTitleEl.textContent = "Failed to load work";
-
-      const reader = document.getElementById("reader");
-      if (reader) {
-        reader.innerHTML = `
-          <div class="note">
-            Failed to load this work. Please check library.json, sources, item.json, base_url, and image filenames.
-          </div>
-        `;
-      }
-    });
+  adLoads.forEach(result => {
+    if (result.status === "rejected") {
+      console.warn("Ad provider failed, continuing anyway:", result.reason);
+    }
   });
-})();
 
+  await loadLibrary();
+
+  wireTopFlyouts();
+  wireStickyControls();
+  wireProgressWatch();
+  wireSearch();
+  wireMobileWorksNav();
+  wireMobileDial();
+  wireDocumentVisibility();
+  wireReaderClickMonetization();
+
+  await buildReader();
+
+  window.addEventListener("popstate", async () => {
+    await buildReader();
+    scrollToReaderContentStartInstant();
+  });
+}
+document.addEventListener("DOMContentLoaded", () => {
+  boot().catch(err => {
+    console.error(err);
+    clearRefreshTimers();
+
+    const workTitleEl = document.getElementById("workTitle");
+    if (workTitleEl) workTitleEl.textContent = "Failed to load work";
+
+    const reader = document.getElementById("reader");
+    if (reader) {
+      reader.innerHTML = `
+        <div class="note">
+          Failed to load this work.<br><br>
+          <strong>Error:</strong> ${escapeHtml(String(err?.message || err))}
+        </div>
+      `;
+    }
+  });
+});
 
