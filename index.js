@@ -433,21 +433,16 @@ window.__STATE = STATE;
   // ------------------------------------------------------------
 
  function rawServeAds() {
-
-
-  function serveAds(force = false) {
-    const elapsed = now() - STATE.lastServeAt;
-
-    if (force || elapsed >= CONFIG.minGlobalServeGapMs) {
-      rawServeAds();
-      return;
-    }
-
-    if (STATE.adServeScheduled) return;
-    STATE.adServeScheduled = true;
-
-    window.setTimeout(() => rawServeAds(), Math.max(0, CONFIG.minGlobalServeGapMs - elapsed));
+  try {
+    window.AdProvider = window.AdProvider || [];
+    window.AdProvider.push({ serve: {} });
+    STATE.lastServeAt = now();
+    STATE.adServeScheduled = false;
+  } catch (err) {
+    console.warn("rawServeAds failed, continuing anyway:", err);
+    STATE.adServeScheduled = false;
   }
+}
 
   function burstServeAds() {
     if (document.hidden) return;
