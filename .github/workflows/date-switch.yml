@@ -1,0 +1,77 @@
+name: Date-based index switch
+
+on:
+  schedule:
+    - cron: "0 0 */2 * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  switch-index:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+
+      - name: Decide which file to use
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [ ! -f "date.txt" ]; then
+            echo "date.txt not found in repo root"
+            exit 1
+          fi
+
+          if [ ! -f "reveal-index.html" ]; then
+            echo "reveal-index.html not found in repo root"
+            exit 1
+          fi
+
+          if [ ! -f "placeholder-index.html" ]; then
+            echo "placeholder-index.html not found in repo root"
+            exit 1
+          fi
+
+          RAW_DATE="$(tr -d '\r\n' < date.txt | xargs)"
+          echo "date.txt contains: $RAW_DATE"
+
+          FILE_TS="$(date -u -d "$RAW_DATE" +%s 2>/dev/null || true)"
+          if [ -z "${FILE_TS:-}" ]; then
+            echo "Could not parse date.txt. Use a format like YYYY-MM-DD"
+            exit 1
+          fi
+
+          NOW_TS="$(date -u +%s)"
+          DIFF_SEC=$((NOW_TS - FILE_TS))
+          DIFF_DAYS=$((DIFF_SEC / 86400))
+
+          echo "Difference in days: $DIFF_DAYS"
+
+          if [ "$DIFF_DAYS" -gt 2 ]; then
+            echo "date.txt is older than 2 days -> using reveal-index.html"
+            cp reveal-index.html index.html
+          else
+            echo "date.txt is within 2 days (or today/future) -> using placeholder-index.html"
+            cp placeholder-index.html index.html
+          fi
+
+      - name: Commit and push if changed
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if git diff --quiet -- index.html; then
+            echo "No changes to index.html"
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add index.html
+          git commit -m "Auto-update index.html based on date.txt"
+          git push
