@@ -1,19 +1,145 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Black Page</title>
-  <style>
-    html, body {
-      margin: 0;
-      width: 100%;
-      height: 100%;
-      background: #000;
-      overflow: hidden;
+// ============================================================
+// Rotunda
+//
+// Landing Page Library Engine
+//
+// Data
+//
+// rotunda.json
+//      ↓
+// storage.json
+//      ↓
+// item.json
+//
+// V1
+//
+// - Load rotunda.json
+// - Resolve first page
+// - Build cards
+// - Select work
+//
+// Future
+//
+// - Perspective
+// - Drag
+// - Inertia
+// - Snap
+// - Hero synchronization
+// ============================================================
+
+import { Storage } from "../data/storage.js";
+
+export class Rotunda {
+
+    static works = [];
+
+    static selected = 0;
+
+    static async start() {
+
+        const response = await fetch("/src/data/rotunda.json");
+
+        const rotunda = await response.json();
+
+        this.works = rotunda.works;
+
+        const container =
+            document.querySelector(".landing-rotunda");
+
+        container.innerHTML = "";
+
+        for (const work of this.works) {
+
+            const card =
+                await this.createCard(work);
+
+            container.appendChild(card);
+
+        }
+
+        this.select(rotunda.default?.work ?? this.works[0].slug);
+
     }
-  </style>
-</head>
-<body>
-</body>
-</html>
+
+    static async createCard(work) {
+
+        const card =
+            document.createElement("div");
+
+        card.className = "rotunda-card";
+
+        //----------------------------------------------------
+        // Future:
+        //
+        // rotunda.title
+        //      ↓
+        // work.display
+        //      ↓
+        // item.title
+        //----------------------------------------------------
+
+        const title =
+            work.title ??
+            work.display ??
+            work.slug;
+
+        //----------------------------------------------------
+        // Resolve item.json.
+        //----------------------------------------------------
+
+        const item =
+            await Storage.loadItem(
+
+                work.source,
+                work.slug,
+                work.chapters[0]
+
+            );
+
+        //----------------------------------------------------
+        // First page becomes cover.
+        //----------------------------------------------------
+
+        const cover =
+            item.pages?.[0] ?? "";
+
+        card.innerHTML = `
+
+            <img
+                class="rotunda-cover"
+                src="${cover}"
+            >
+
+            <div class="rotunda-title">
+
+                ${title}
+
+            </div>
+
+        `;
+
+        card.onclick = () =>
+
+            this.select(work.slug);
+
+        return card;
+
+    }
+
+    static select(slug) {
+
+        console.log("Selected", slug);
+
+        //----------------------------------------------------
+        // Future:
+        //
+        // Update Hero.
+        // Scroll Rotunda.
+        // Animate.
+        // Glow.
+        // Reflection.
+        //----------------------------------------------------
+
+    }
+
+}
